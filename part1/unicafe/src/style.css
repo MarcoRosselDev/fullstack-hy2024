@@ -8,7 +8,7 @@ body{
   background-color: #111324;
   color: #e9ffff;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: small;
+  font-size: medium;
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -31,4 +31,25 @@ td , th{
   border: 1px solid white;
   padding: 5px;
   text-align: center;
+}
+
+#btns{
+  display: flex;
+  gap: 4px;
+}
+
+button{
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  width: 70px;
+}
+
+button:hover{
+  background-color: gray;
+}
+
+table {
+  border: 4px solid whitesmoke;
+  min-width: 200px;
 }
