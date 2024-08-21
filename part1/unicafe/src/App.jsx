@@ -7,60 +7,47 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  const positive =  good/(bad + neutral + good) * 100;
+  const average = (good - bad) / (good + bad + neutral);
+
   return (
     <>
-      <h1>gove feedback</h1>
-      {/* <table>
-        <tr>
-          <td>Hola, soy tu primera celda</td>
-          <td>Hola, soy tu sogunda celda</td>
-          <td>Hola, soy tu tercera celda</td>
-        </tr>
-        <tr>
-          <th>hi</th>
-          <td>912</td>
-        </tr>
-        <tr>
-          <td>hi</td>
-          <td>0</td>
-          <td>1</td>
-          <td>912</td>
-        </tr>
-        <tr>
-          <td>hi</td>
-          <td>0</td>
-          <td>1</td>
-          <td>912</td>
-        </tr>
-      </table> */}
+      <h1>give feedback</h1>
+      <div>
+      <button onClick={() => setGood(prev => prev + 1)}>good</button>
+      <button onClick={() => setNeutral(prev => prev + 1)}>neutral</button>
+      <button onClick={() => setBad(prev => prev + 1)}>bad</button>
+      </div>
+      <h1>statistics</h1>
       <table>
-        <tr>
-          <th colSpan="2">Animales</th>
-        </tr>
-        <tr>
-          <th>Hipopótamo</th>
-          <td rowSpan="2">Yegua</td>
-        </tr>
-        <tr>
-          <th>Caballo</th>
-        </tr>
-        <tr>
-          <td>Semental</td>
-        </tr>
-        <tr>
-          <th>Cocodrilo</th>
-        </tr>
-        <tr>
-          <th>Pollo</th>
-
-          <td>Gallina</td>
-        </tr>
-        <tr>
-          <td>Gallo</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>good</td>
+            <td>{good}</td>
+          </tr>
+          <tr>
+            <td>neutral</td>
+            <td>{neutral}</td>
+          </tr>
+          <tr>
+            <td>bad</td>
+            <td>{bad}</td>
+          </tr>
+          <tr>
+            <td>all</td>
+            <td>{bad + neutral + good}</td>
+          </tr>
+          <tr>
+            <td>average</td>
+            <td>{average.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>positive</td>
+            <td>{positive.toFixed(2)} %</td>
+          </tr>
+        </tbody>
       </table>
     </>
   )
 }
-
 export default App
