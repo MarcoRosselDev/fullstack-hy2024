@@ -40,6 +40,7 @@ const App = () => {
     <div className='most-voted'>
       <h1>Anecdote with most votes</h1>
       <p>{anecdotes[find]}</p>
+      <p>has {mostVotes} votes</p>
     </div>
     </>
   )
