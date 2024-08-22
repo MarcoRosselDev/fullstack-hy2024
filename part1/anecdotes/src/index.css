@@ -31,4 +31,20 @@
 
 .container{
   max-width: 500px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: end;
+  gap: 40px;
+  max-width: 300px;
+  padding: 20px;
+}
+
+button{
+  padding: 5px;
+}
+.btns{
+  display: flex;
+  gap: 20px;
 }

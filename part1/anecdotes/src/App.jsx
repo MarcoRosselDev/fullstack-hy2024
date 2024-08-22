@@ -11,14 +11,24 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
-  ]
-
+  ];
+  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0, 0, 0])
   const [selected, setSelected] = useState(0)
+
+  const handleVote = index => {
+    const newArr = [...votes]
+    newArr[index] += 1;
+    setVotes(newArr);
+  }
 
   return (
     <div className='container'>
       <p>{anecdotes[selected]}</p>
-      <button onClick={() => setSelected(prev => Math.floor(Math.random() * anecdotes.length - 1))}>Next anecdote</button>
+      <div className='btns'>
+        <p>has {votes[selected]} votes</p>
+        <button onClick={() => handleVote(selected)}>vote</button>
+        <button onClick={() => setSelected(Math.floor(Math.random() * anecdotes.length))}>Next anecdote</button>
+      </div>
     </div>
   )
 }
