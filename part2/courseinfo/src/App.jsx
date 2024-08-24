@@ -1,39 +1,4 @@
-const Content = ({parts}) => {
-  return (
-    <div>
-      {parts.map(item => <Part part={item.name} exercises={item.exercises} />)}
-    </div>
-  )
-}
-
-const Total = ({parts}) => {
-  const total = parts.reduce((accumulator, currentValue) => accumulator + currentValue.exercises, 0)
-  return (
-    <p> <strong>total of {total} exercises</strong></p>
-  )
-}
-
-const Part = ({part, exercises}) => {
-  return (
-    <p>{part} {exercises}</p>
-  )
-}
-
-const Header = params => {
-  return (
-    <h1>{params.title}</h1>
-  )
-}
-
-const Course = ({course}) =>{
-  return (
-    <>
-      <Header title={course.name}/>
-      <Total  parts={course.parts}/>
-      <Content parts={course.parts} />
-    </>
-  )
-}
+import Course from './Course'
 
 const App = () => {
   const courses = [
@@ -85,7 +50,7 @@ const App = () => {
     <div>
       {courses.map((item) => <Course key={item.id} course={item}/>)}
     </div>
-  ) 
+  )
 }
 
 export default App
