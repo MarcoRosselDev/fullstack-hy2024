@@ -1,6 +1,10 @@
 import { useState } from 'react'
+import PersonForm from './components/PersonForm'
+import Filter from './components/Filter'
+import Persons from './components/Persons'
 
 const App = () => {
+  // persons array for testing
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
     { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
@@ -11,49 +15,24 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState('')
 
-  const handleNameChange = event => {
-    setNewName(event.target.value)
-  }
-  const handleNumberChange = event => {
-    setNewNumber(event.target.value)
-  }
-  const handleSearch = event => {
-    const a = persons.filter(item => item.name.toLowerCase().includes(event.target.value.toLowerCase()) ? item: null)
-    //console.log(a);
-    setSearch(a)
-  }
-
-  const addName = event => {
-    event.preventDefault()
-    const n = {name: newName,number: newNumber, id: persons.length + 1}
-    if (persons.find(i => i.name === n.name )) {
-      alert(`${n.name} is already added to phonebook`)
-    } else{
-      setPersons(persons.concat(n))
-      setNewName("")
-      setNewNumber("")
-    }
-  }
-
-  const show = search? search.map(item => <p key={item.name}>{item.name} {item.number}</p>): persons.map(item => <p key={item.name}>{item.name} {item.number}</p>)
-
   return (
     <div>
       <h2>Phonebook</h2>
-      filter shown with: <input type="text" onChange={handleSearch}/>
-      <form onSubmit={addName} >
-        <div>
-          name: <input onChange={handleNameChange} value={newName}/>
-        </div>
-        <div>
-          number: <input onChange={handleNumberChange} value={newNumber}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+
+      <Filter 
+      setSearch={setSearch} 
+      persons={persons}/>
+
+      <PersonForm 
+      setNewName={setNewName} 
+      setNewNumber={setNewNumber} 
+      newName={newName} 
+      newNumber={newNumber} 
+      persons={persons} 
+      setPersons={setPersons}/>
+
       <h2>Numbers</h2>
-      {show}
+      <Persons search={search} persons={persons}/>
     </div>
   )
 }
@@ -75,6 +54,7 @@ const App = (props) => {
     'a new note...'
   )
   const [showAll, setShowAll] = useState(true)
+
   const addNote = (event) => {
     event.preventDefault()
     const noteObject = {
