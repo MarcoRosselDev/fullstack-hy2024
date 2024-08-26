@@ -31,7 +31,7 @@ const PersonForm = ({newName, newNumber, setNewNumber, setNewName, persons, setP
     <div>
       number: <input onChange={handleNumberChange} value={newNumber}/>
     </div>
-      <button type="submit" onClick={addName}>add</button>
+      <button type="submit">add</button>
   </form>
   )
 }
