@@ -1,3 +1,5 @@
+import services from '../services/numbers'
+
 const PersonForm = ({newName, newNumber, setNewNumber, setNewName, persons, setPersons}) => {
   const handleNameChange = event => {
     setNewName(event.target.value)
@@ -7,13 +9,19 @@ const PersonForm = ({newName, newNumber, setNewNumber, setNewName, persons, setP
   }
   const addName = event => {
     event.preventDefault()
-    const n = {name: newName,number: newNumber, id: persons.length + 1}
+    const n = {name: newName,number: newNumber}
     if (persons.find(i => i.name === n.name )) {
       alert(`${n.name} is already added to phonebook`)
+      return
     }
-    setPersons(persons.concat(n))
-    setNewName("")
-    setNewNumber("")
+    services
+    .addPhone(n)
+    .then(newNote =>{
+      setPersons(persons.concat(newNote))
+      setNewName(prev => "")
+      setNewNumber(prev => "")
+    })
+    .catch(err => console.log(err))
   }
   return (
   <form onSubmit={addName} >
@@ -23,9 +31,7 @@ const PersonForm = ({newName, newNumber, setNewNumber, setNewName, persons, setP
     <div>
       number: <input onChange={handleNumberChange} value={newNumber}/>
     </div>
-    <div>
-      <button type="submit">add</button>
-    </div>
+      <button type="submit" onClick={addName}>add</button>
   </form>
   )
 }

@@ -1,7 +1,9 @@
-const Persons = ({search, persons}) => {
+import Person from "./Person"
+
+const Persons = ({search, persons, setPersons}) => {
   return search? 
-  search.map(item => <p key={item.name}>{item.name} {item.number}</p>): 
-  persons.map(item => <p key={item.name}>{item.name} {item.number}</p>)
+  search.map(item => <Person key={item.id} id={item.id} name={item.name}  persons={persons} number={item.number} setPersons={setPersons}/>): 
+  persons.map(item => <Person key={item.id} id={item.id} name={item.name} persons={persons} number={item.number} setPersons={setPersons}/>)
 }
 
 export default Persons
