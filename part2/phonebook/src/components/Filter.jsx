@@ -1,14 +1,13 @@
-const Filter = ({setFilter, persons}) =>{
+const Filter = ({setShow, persons}) =>{
+
   const handleSearch = event => {
-    //const a = persons.filter(item => item.name.toLowerCase().includes(event.target.value.toLowerCase()) ? item: null)
-    //console.log(a);
-    let search = persons.filter(item => item.name.toLowerCase().includes(event.target.value.toLowerCase()) ? item : null)
-    console.log(search, 'on filter');
-    
-    setFilter(search)
+    setShow(persons.filter(item => item.name.toLowerCase().includes(event.target.value.toLowerCase()) ? item : null))
   }
+
   return (
-    <>filter shown with: <input type="text" id="filter-id" onChange={handleSearch}/></>
+    <>
+      filter shown with: <input type="text" onChange={handleSearch} />
+    </>
   )
 }
 export default Filter
