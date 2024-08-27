@@ -1,6 +1,6 @@
 import Person from './Person'
 
-const Persons = ({persons, show, setPersons}) => {
+const Persons = ({persons, show, setPersons, setTypeMsg, setMsgState}) => {
 
   return (
     <>
@@ -13,6 +13,8 @@ const Persons = ({persons, show, setPersons}) => {
             number={item.number}
             id={item.id}
             setPersons={setPersons}
+            setTypeMsg={setTypeMsg}
+            setMsgState={setMsgState}
             />)
         } else {
           return

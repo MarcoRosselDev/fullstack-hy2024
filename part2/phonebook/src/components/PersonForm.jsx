@@ -1,6 +1,16 @@
 import services from '../services/numbers'
 
-const PersonForm = ({setName, setNumber, name, number, persons, setShow, setPersons}) => {
+const PersonForm = ({
+  setName, 
+  setNumber, 
+  name, 
+  number, 
+  persons,
+  setShow,
+  setPersons,
+  setTypeMsg,
+  setMsgState
+}) => {
   const handleName = event => {
     setName(event.target.value)
   }
@@ -18,9 +28,25 @@ const PersonForm = ({setName, setNumber, name, number, persons, setShow, setPers
           setShow(prev => prev.filter(i => i.name !== data.name).concat(data))
           setPersons(prev => prev.filter(i => i.name !== data.name).concat(data))
           setName(prev => "")
-          setNumber(prev => "")            
+          setNumber(prev => "")
+          
+          setMsgState(perv => `Edited ${data.name} number`)
+          setTypeMsg(perv => "success")
+
+          setTimeout(() => {
+            setMsgState(prev => "")
+            setTypeMsg(prev => "")
+          }, 2000);
         })
-        .catch(err => console.log(err))
+        .catch(err =>{
+          setMsgState( prev => `some error happen: ${err}`)
+          setTypeMsg(prev => "error")
+  
+          setTimeout(() => {
+            setTypeMsg(prev => "")
+            setMsgState(prev => "")
+          }, 2000);
+        })
       }
     } else {
       services
@@ -30,7 +56,24 @@ const PersonForm = ({setName, setNumber, name, number, persons, setShow, setPers
         setPersons(prev => prev.concat(data))
         setName(prev => "")
         setNumber(prev => "")
-      })  
+
+        setMsgState(prev => `Added ${data.name}`)
+        setTypeMsg(prev => "success")
+
+        setTimeout(() => {
+          setTypeMsg(prev => "")
+          setMsgState(prev => "")
+        }, 2000);
+      })
+      .catch(err =>{
+        setMsgState(`some error happen: ${err}`)
+        setTypeMsg("error")
+
+        setTimeout(() => {
+          setTypeMsg(prev => "")
+          setMsgState(prev => "")
+        }, 2000);
+      })
     }
   }
 
