@@ -1,7 +1,8 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
-const persons = [
+let persons = [
   { 
     "id": 1,
     "name": "Arto Hellas", 
@@ -23,9 +24,76 @@ const persons = [
     "number": "39-23-6423122"
   }
 ]
+const generateId = () => {
+  return Math.floor(Math.random() * 100000)
+}
+/* const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
+}
+app.use(requestLogger)
+ */
+app.use(express.json())
 
-app.get('/api/persons', (request, response) => {
-  response.json(persons)
+/* const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+app.use(unknownEndpoint)
+ */
+app.use(morgan('combined'))
+
+app.post('/api/persons', (req, res) => {
+  const body = req.body
+  const checkName = persons.find(item => item.name === body.name)
+  if (!body.name) {
+    return res.status(400).json({ 
+      error: 'name missing' 
+    })
+  } else if (!body.number) {
+    return res.status(400).json({ 
+      error: 'number missing' 
+    })
+  } else if (checkName) {
+    return res.status(400).json({ 
+      error: 'name must be unique'
+    })
+  }
+
+  const person = {
+    name: body.name,
+    number: body.number,
+    id: generateId(),
+  }
+
+  persons = persons.concat(person)
+
+  res.json(person)
+})
+app.get('/api/persons', (req, res) => {
+  res.json(persons)
+})
+app.get('/info', (req, res) => {
+  const fecha = new Date()
+  res.send(`
+    <p>Phonebook has info for ${persons.length} people</p>
+    <p>${fecha.toString()}</p>
+  `)
+})
+app.get('/api/persons/:id', (req, res) =>{
+  const id = Number(req.params.id)
+  const person = persons.find(p => p.id === id)
+  person
+  ? res.json(person) 
+  : res.status(404).end()
+})
+app.delete('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id)
+  persons = persons.filter(note => note.id !== id)
+
+  res.status(204).end()
 })
 
 const PORT = 3001
