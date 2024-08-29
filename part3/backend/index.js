@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
+
 let notes = [
   {
     id: 1,
@@ -19,6 +21,9 @@ let notes = [
 ]
 // activacion de convertidor de json para el envio de jsons
 app.use(express.json())
+// middleware para resivir solicitudes de cualquier origen
+app.use(cors())
+
 const generateId = () => {
   const maxId = notes.length > 0
     ? Math.max(...notes.map(n => n.id))
@@ -71,7 +76,7 @@ app.delete('/api/notes/:id', (request, response) => {
   response.status(204).end()
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })

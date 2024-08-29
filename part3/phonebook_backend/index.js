@@ -37,6 +37,7 @@ const generateId = () => {
 app.use(requestLogger)
  */
 app.use(express.json())
+app.use(express.static('dist'))
 
 /* const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
