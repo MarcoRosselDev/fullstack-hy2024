@@ -12,6 +12,7 @@ const Persons = ({persons, show, setPersons, setTypeMsg, setMsgState}) => {
             name={item.name}
             number={item.number}
             id={item.id}
+            persons={persons}
             setPersons={setPersons}
             setTypeMsg={setTypeMsg}
             setMsgState={setMsgState}

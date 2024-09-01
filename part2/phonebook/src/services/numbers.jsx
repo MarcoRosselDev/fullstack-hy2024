@@ -1,5 +1,5 @@
 import axios from "axios"
-const url = "/persons"
+const url = "/api/persons"
 
 const getAll = () => {
   const request = axios.get(url)
@@ -13,7 +13,7 @@ const addPhone = newNumber => {
 
 const deletePhone = id => {
   const request = axios.delete(`${url}/${id}`)
-  return request.then(response => response.data)
+  return request.then(response => response.status)
 }
 
 const putPhone = (id, newData) => {

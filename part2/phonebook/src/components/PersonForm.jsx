@@ -51,7 +51,7 @@ const PersonForm = ({
     } else {
       services
       .addPhone({name, number})
-      .then(data =>{
+      .then(data => {
         setShow(prev => prev.concat(data))
         setPersons(prev => prev.concat(data))
         setName(prev => "")
@@ -65,10 +65,10 @@ const PersonForm = ({
           setMsgState(prev => "")
         }, 2000);
       })
-      .catch(err =>{
-        setMsgState(`some error happen: ${err}`)
+      .catch(error =>{
+        console.log(error)
+        setMsgState(`some error happen: ${error.response.data.error}`)
         setTypeMsg("error")
-
         setTimeout(() => {
           setTypeMsg(prev => "")
           setMsgState(prev => "")

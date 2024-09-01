@@ -1,17 +1,20 @@
 import services from '../services/numbers'
 
-const Person = ({name, number, id, setPersons, setMsgState, setTypeMsg}) => {
+const Person = ({name, number, id, setPersons, setMsgState, setTypeMsg, persons}) => {
 
   const deleteNumber = (id, name) => {
     if (window.confirm(`Do you really want to delete ${name} ?`)) {
       services
       .deletePhone(id)
       .then(data=>{
-        setPersons(prev => prev.filter(item => item.id !== data.id))
-
-        setMsgState(perv => `Deleted ${data.name} number`)
-        setTypeMsg(perv => "error")
-
+        console.log(data)
+        if (data === 204) {
+          const item = persons.find(item => item.id === id)
+          setPersons(prev => prev.filter(item => item.id !== id))
+          setMsgState(perv => `${item.name} deleted successful`)
+          setTypeMsg(perv => "error")
+        }
+        
         setTimeout(() => {
           setMsgState(prev => "")
           setTypeMsg(prev => "")
