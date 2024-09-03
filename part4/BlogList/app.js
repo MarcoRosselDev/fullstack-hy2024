@@ -6,9 +6,10 @@ const mongoose = require('mongoose')
 const config = require('./utils/config')
 
 mongoose.set('strictQuery', false)
-mongoose.connect(config.MONGODB_URL)
-  .then(result => console.log('connected to MongoDB'))
-  .catch(error => console.log('error connecting to MongoDB:', error.message))
+mongoose
+  .connect(config.MONGODB_URL)
+  .then(() => console.log('connected to MongoDB'))
+  .catch((error) => console.log('error connecting to MongoDB:', error.message))
 
 app.use(cors())
 app.use(express.json())
