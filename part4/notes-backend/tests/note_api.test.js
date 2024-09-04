@@ -9,13 +9,33 @@ const { initialNotes, notesInDb } = require('./test_helper')
 const api = supertest(app)
 // antes de iniciar borramos toda la base de datos de prueba
 // luego publicamos este array en la base de datos de prueba
-beforeEach(async () => {
+/* beforeEach(async () => {
   await Note.deleteMany({})
   let noteObject = new Note(initialNotes[0])
   await noteObject.save()
   noteObject = new Note(initialNotes[1])
   await noteObject.save()
+}) */
+beforeEach(async () => {
+  await Note.deleteMany({})
+
+  const noteObjects = initialNotes.map((note) => new Note(note))
+  const promiseArray = noteObjects.map((note) => note.save())
+  await Promise.all(promiseArray)
 })
+
+/* si lo que queremos es que se ejecute en orden aplicamos el for of
+por que Promise.all() espera a que cada uno termine pero estan en su propio runtime
+por lo que el orden de termino es aleatorio e inesperado
+beforeEach(async () => {
+  await Note.deleteMany({})
+
+  for (let note of helper.initialNotes) {
+    let noteObject = new Note(note)
+    await noteObject.save()
+  }
+})
+*/
 // ahora podemos hacer las pruebas
 test('notes are returned as json', async () => {
   await api
@@ -76,6 +96,33 @@ test('note without content is not added', async () => {
   const response = await api.get('/api/notes')
 
   assert.strictEqual(response.body.length, initialNotes.length) */
+})
+
+test('a specific note can be viewed', async () => {
+  const notesAtStart = await notesInDb()
+
+  const noteToView = notesAtStart[0]
+
+  const resultNote = await api
+    .get(`/api/notes/${noteToView.id}`)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  assert.deepStrictEqual(resultNote.body, noteToView)
+})
+
+test('a note can be deleted', async () => {
+  const notesAtStart = await notesInDb()
+  const noteToDelete = notesAtStart[0]
+
+  await api.delete(`/api/notes/${noteToDelete.id}`).expect(204)
+
+  const notesAtEnd = await notesInDb()
+
+  const contents = notesAtEnd.map((r) => r.content)
+  assert(!contents.includes(noteToDelete.content))
+
+  assert.strictEqual(notesAtEnd.length, initialNotes.length - 1)
 })
 
 after(async () => {
