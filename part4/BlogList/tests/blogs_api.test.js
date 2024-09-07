@@ -26,7 +26,7 @@ let blogs = [
   },
 ]
 
-describe.only('testing describe', () => {
+describe('testing describe', () => {
   beforeEach(async () => {
     await Blog.deleteMany({})
     //await Blog.insertMany(blogsList)
@@ -139,11 +139,11 @@ describe.only('testing describe', () => {
     })
   })
 
-  describe.only('put:id and check if like + 1', async () => {
+  describe('put:id and check if like + 1', async () => {
     const blogGlobal = await Blog.findOne({})
     console.log(blogGlobal)
 
-    test.only('put:id | successful', async () => {
+    test('put:id | successful', async () => {
       const newOne = {
         title: blogGlobal.title,
         author: blogGlobal.author,
