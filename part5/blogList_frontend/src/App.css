@@ -1,0 +1,31 @@
+* {
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+#root {
+  max-width: 1280px;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 30px;
+}
+
+.blog {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+  border: 1px solid whitesmoke;
+  border-radius: 10px;
+}
+
+.userinfo {
+  width: 100%;
+  border-bottom: 1px solid whitesmoke;
+}
+
+.loginform {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
