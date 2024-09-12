@@ -3,12 +3,12 @@ import blogsServices from './services/blogs'
 import loginServices from './services/login'
 import './App.css'
 import Blogs from './components/Blogs'
+import ToggleComponent from './components/ToggleComponent'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState(null)
   const [token, setToken] = useState(null)
 
   //new blog states
@@ -33,7 +33,6 @@ const App = () => {
       window.localStorage.setItem('tokenApp', data.token)
       window.localStorage.setItem('username', data.username)
       setToken(data.token)
-      setUser(data)
     })
     setPassword('')
   }
@@ -56,6 +55,10 @@ const App = () => {
       .then((data) => {
         console.log(data)
         setBlogs((prev) => prev.concat(data))
+        setTitle('')
+        setAuthor('')
+        setUrl('')
+        setLikes('')
       })
       .catch((error) => console.log(error))
   }
@@ -110,13 +113,13 @@ const App = () => {
     <>
       {token ? (
         <>
-          {formBlogs()}
+          {<ToggleComponent text="blog">{formBlogs()}</ToggleComponent>}
           {/* <p>
             ya se inicio {username} con el token : {token}
           </p> */}
         </>
       ) : (
-        formLogin()
+        <ToggleComponent text="login">{formLogin()}</ToggleComponent>
       )}
       <Blogs blogs={blogs} />
     </>
