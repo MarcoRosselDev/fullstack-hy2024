@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
-const ToggleComponent = ({ text, children }) => {
-  const [show, setShow] = useState(false)
+// eslint-disable-next-line react/prop-types
+const ToggleComponent = ({ textShow, textHide, children }) => {
+  const [show, setShow] = useState(true)
 
   const handleShow = () => {
     setShow((prev) => !prev)
@@ -10,15 +11,15 @@ const ToggleComponent = ({ text, children }) => {
   const hideWhenVisible = { display: show ? 'none' : '' }
   const showWhenVisible = { display: show ? '' : 'none' }
   return (
-    <>
+    <div className="toggle-comp">
       <div style={hideWhenVisible}>
         {children}
-        <button onClick={handleShow}>ocultar {text}</button>
+        <button onClick={handleShow}>{textHide}</button>
       </div>
       <div style={showWhenVisible}>
-        <button onClick={handleShow}>{text}</button>
+        <button onClick={handleShow}>{textShow}</button>
       </div>
-    </>
+    </div>
   )
 }
 

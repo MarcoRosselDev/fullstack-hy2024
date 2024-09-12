@@ -33,8 +33,10 @@ const App = () => {
       window.localStorage.setItem('tokenApp', data.token)
       window.localStorage.setItem('username', data.username)
       setToken(data.token)
+      setPassword('')
+      setTitle('')
+      setAuthor('')
     })
-    setPassword('')
   }
   const handleChangePassword = (e) => {
     setPassword(e.target.value)
@@ -80,13 +82,18 @@ const App = () => {
     <form onSubmit={handleNewBlog} className="loginform">
       <h1>new Blog</h1>
       <label htmlFor="title">title</label>
-      <input type="text" id="title" onChange={handleNewTitle} />
+      <input type="text" id="title" onChange={handleNewTitle} value={title} />
       <label htmlFor="author">author</label>
-      <input type="text" id="author" onChange={handleNewAuthor} />
+      <input
+        type="text"
+        id="author"
+        onChange={handleNewAuthor}
+        value={author}
+      />
       <label htmlFor="url">url</label>
-      <input type="text" id="url" onChange={handleNewUrl} />
+      <input type="text" id="url" onChange={handleNewUrl} value={url} />
       <label htmlFor="likes">likes</label>
-      <input type="number" id="likes" onChange={handleNewLikes} />
+      <input type="number" id="likes" onChange={handleNewLikes} value={likes} />
       <button type="submit">new blog</button>
       <button onClick={logout}>logout</button>
     </form>
@@ -96,9 +103,19 @@ const App = () => {
     <form onSubmit={handleSubmitLogin} className="loginform">
       <h1>Login</h1>
       <label htmlFor="username">username</label>
-      <input type="text" id="username" onChange={handleChangeUsername} />
+      <input
+        type="text"
+        id="username"
+        onChange={handleChangeUsername}
+        value={username}
+      />
       <label htmlFor="password">password</label>
-      <input type="password" id="password" onChange={handleChangePassword} />
+      <input
+        type="password"
+        id="password"
+        onChange={handleChangePassword}
+        value={password}
+      />
       <button type="submit">login user</button>
     </form>
   )
@@ -106,21 +123,26 @@ const App = () => {
     e.preventDefault()
     window.localStorage.clear()
     setUsername('')
+    setPassword('')
     setToken(null)
   }
 
   return (
     <>
-      {token ? (
-        <>
-          {<ToggleComponent text="blog">{formBlogs()}</ToggleComponent>}
-          {/* <p>
-            ya se inicio {username} con el token : {token}
-          </p> */}
-        </>
-      ) : (
-        <ToggleComponent text="login">{formLogin()}</ToggleComponent>
-      )}
+      <div className="form-sec">
+        {token ? (
+          <ToggleComponent
+            textShow="show form new blog"
+            textHide="hide form new blog"
+          >
+            {formBlogs()}
+          </ToggleComponent>
+        ) : (
+          <ToggleComponent textShow="login" textHide="hide login">
+            {formLogin()}
+          </ToggleComponent>
+        )}
+      </div>
       <Blogs blogs={blogs} />
     </>
   )
