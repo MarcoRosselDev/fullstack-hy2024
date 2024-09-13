@@ -19,4 +19,12 @@ const uppLike = async (id) => {
   return like.data
 }
 
-export default { getBlogs, newBlog, uppLike }
+const deleteBlog = async (id, token) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  }
+  const del = await axios.delete(`${baseUrl}blogs/${id}`, config)
+  return del.data
+}
+
+export default { getBlogs, newBlog, uppLike, deleteBlog }

@@ -143,7 +143,7 @@ const App = () => {
           </ToggleComponent>
         )}
       </div>
-      <Blogs blogs={blogs} />
+      <Blogs blogs={blogs} token={token} setBlogs={setBlogs} />
     </>
   )
 }
