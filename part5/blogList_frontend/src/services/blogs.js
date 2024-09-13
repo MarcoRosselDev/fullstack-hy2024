@@ -14,4 +14,9 @@ const newBlog = async (obj, token) => {
   return blog.data
 }
 
-export default { getBlogs, newBlog }
+const uppLike = async (id) => {
+  const like = await axios.put(`${baseUrl}blogs/${id}`)
+  return like.data
+}
+
+export default { getBlogs, newBlog, uppLike }
